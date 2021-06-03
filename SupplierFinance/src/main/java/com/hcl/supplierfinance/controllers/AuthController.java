@@ -85,6 +85,8 @@ public class AuthController {
 		return ResponseEntity.ok(
 				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
+	
+	
 	//For Supplier Sign Up
 	@PostMapping("/supplierSignup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SupplierSignupRequest suppSignupRequest) {

@@ -27,7 +27,10 @@ public class Invoice {
 	private double amount;
 	
 	@Column(name="status")
-	private int status;
+	private String status;
+	
+	@Column(name="invoiceFile")
+	private String invoiceFile;
 	
 	@OneToMany(mappedBy="invoice")
 	private List<Payment> payment;
@@ -38,55 +41,104 @@ public class Invoice {
 	@ManyToOne
 	private Client client;
 	
+	
 	public Invoice() {
 		super();
 	}
-	public Invoice(long innvoiceId, Date innvoiceDate, double amount, int status,
+
+	public Invoice(Date innvoiceDate, double amount, String status, String invoiceFile,
 			Supplier supplier, Client client) {
 		super();
-		this.innvoiceId = innvoiceId;
 		this.innvoiceDate = innvoiceDate;
 		this.amount = amount;
 		this.status = status;
+		this.invoiceFile = invoiceFile;
 		this.supplier = supplier;
 		this.client = client;
 	}
-	
-	public List<Payment> getPayment() {
-		return payment;
-	}
-	public void setPayment(List<Payment> payment) {
-		this.payment = payment;
-	}
-	public long getInnvoiceId() {
-		return innvoiceId;
-	}
-	public void setInnvoiceId(long innvoiceId) {
-		this.innvoiceId = innvoiceId;
-	}
+
+
 	public Date getInnvoiceDate() {
 		return innvoiceDate;
 	}
+
+
 	public void setInnvoiceDate(Date innvoiceDate) {
 		this.innvoiceDate = innvoiceDate;
 	}
+
+
 	public double getAmount() {
 		return amount;
 	}
+
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getStatus() {
+
+
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+
+
+	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	public String getInvoiceFile() {
+		return invoiceFile;
+	}
+
+
+	public void setInvoiceFile(String invoiceFile) {
+		this.invoiceFile = invoiceFile;
+	}
+
+
+	public List<Payment> getPayment() {
+		return payment;
+	}
+
+
+	public void setPayment(List<Payment> payment) {
+		this.payment = payment;
+	}
+
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+
 	public Client getClient() {
 		return client;
 	}
+
+
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+
+	public long getInnvoiceId() {
+		return innvoiceId;
+	}
+
+
+	public void setInnvoiceId(long innvoiceId) {
+		this.innvoiceId = innvoiceId;
+	}
+
+
+	
+	
 	
 }

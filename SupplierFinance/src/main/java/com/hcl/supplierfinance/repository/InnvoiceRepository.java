@@ -6,4 +6,5 @@ import com.hcl.supplierfinance.models.Invoice;
 
 public interface InnvoiceRepository extends JpaRepository<Invoice, Long>{
 
+		
 }

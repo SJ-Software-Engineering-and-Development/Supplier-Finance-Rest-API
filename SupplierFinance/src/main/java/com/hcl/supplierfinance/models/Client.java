@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -42,7 +43,7 @@ public class Client {
 	@OneToOne
 	private Account account;
 	
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Invoice> innvoice;
 	
 	
@@ -53,7 +54,6 @@ public class Client {
 	public Client(String name, String city, String state, String country, String phoneNumber,
 			Double creditLimit, User user, Account account) {
 		super();
-		this.clientId = clientId;
 		this.name = name;
 		this.city = city;
 		this.state = state;
