@@ -23,7 +23,7 @@ import com.hcl.supplierfinance.repository.SupplierRepository;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/supplierFinance/innvoice")
+@RequestMapping("/api/supplierFinance/innvoice")
 public class InnvoiceController {
 	
 	@Autowired
