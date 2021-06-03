@@ -14,6 +14,16 @@ public class InnvoiceUploadRequest {
 		
 		private String invoiceFile;
 		
+		private String currency;
+		
+		public String getCurrency() {
+			return currency;
+		}
+
+		public void setCurrency(String currency) {
+			this.currency = currency;
+		}
+
 		private Long suserId;
 		
 		private Long cuserId;

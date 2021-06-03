@@ -43,7 +43,8 @@ public class InnvoiceController {
 		Client client = clientRepository.findUserById(innvoiceUploadRequest.getCuserId());
 		
 		Invoice invoice = new Invoice(innvoiceUploadRequest.getInnvoiceDate(),innvoiceUploadRequest.getAmount(),
-				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceFile(),supplier, client);
+				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceFile(),
+				innvoiceUploadRequest.getCurrency(),supplier, client);
 		innvoiceRepository.save(invoice);
 		return ResponseEntity.ok(new MessageResponse("Invoice upaded Successfully!"));
 	}

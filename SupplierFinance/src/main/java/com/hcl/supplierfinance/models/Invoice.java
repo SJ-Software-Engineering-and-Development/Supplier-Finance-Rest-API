@@ -32,6 +32,9 @@ public class Invoice {
 	@Column(name="invoiceFile")
 	private String invoiceFile;
 	
+	@Column(name="currency")
+	private String currency;
+	
 	@OneToMany(mappedBy="invoice")
 	private List<Payment> payment;
 	
@@ -46,13 +49,14 @@ public class Invoice {
 		super();
 	}
 
-	public Invoice(Date innvoiceDate, double amount, String status, String invoiceFile,
+	public Invoice(Date innvoiceDate, double amount, String status, String invoiceFile, String currency,
 			Supplier supplier, Client client) {
 		super();
 		this.innvoiceDate = innvoiceDate;
 		this.amount = amount;
 		this.status = status;
 		this.invoiceFile = invoiceFile;
+		this.currency = currency;
 		this.supplier = supplier;
 		this.client = client;
 	}
@@ -137,8 +141,13 @@ public class Invoice {
 		this.innvoiceId = innvoiceId;
 	}
 
+	public String getCurrency() {
+		return currency;
+	}
 
-	
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 	
 	
 }

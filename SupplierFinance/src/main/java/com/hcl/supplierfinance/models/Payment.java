@@ -16,7 +16,7 @@ public class Payment {
 	@Id
 	@GeneratedValue
 	@Column(name="paymentId")
-	private long paymentId;
+	private Long paymentId;
 	
 	@Column(name="paymentDate")
 	private Date paymentDate;
@@ -27,11 +27,10 @@ public class Payment {
 	@ManyToOne
 	private Invoice invoice;
 	
-	
 	public Payment() {
 		super();
 	}
-	public Payment(long paymentId, Date paymentDate, Bank banker, Invoice invoice) {
+	public Payment(Date paymentDate, Bank banker, Invoice invoice) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentDate = paymentDate;
