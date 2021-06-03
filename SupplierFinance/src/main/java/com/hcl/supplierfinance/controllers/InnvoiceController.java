@@ -3,7 +3,6 @@ package com.hcl.supplierfinance.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,8 +38,8 @@ public class InnvoiceController {
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadInvoice(@Valid @RequestBody InnvoiceUploadRequest innvoiceUploadRequest) {
 		
-		Supplier supplier = supplierRepository.findUserById(innvoiceUploadRequest.getSuserId());
-		Client client = clientRepository.findUserById(innvoiceUploadRequest.getCuserId());
+		Supplier supplier = supplierRepository.findById(innvoiceUploadRequest.getSuserId()).get();
+		Client client = clientRepository.findById(innvoiceUploadRequest.getCuserId()).get();
 		
 		Invoice invoice = new Invoice(innvoiceUploadRequest.getInnvoiceDate(),innvoiceUploadRequest.getAmount(),
 				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceFile(),

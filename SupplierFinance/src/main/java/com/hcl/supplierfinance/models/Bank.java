@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Bank {
 	@Id
 	@Column(name="bankId")
-	private long bankId;
+	private Long bankId;
 	@Column(name="bankerName")
 	private String name;
 	@Column(name="contactNo")
@@ -42,11 +42,11 @@ public class Bank {
 	public void setPayment(List<Payment> payment) {
 		this.payment = payment;
 	}
-	public long getBankId() {
+	public Long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(long bankId) {
+	public void setBankId(Long bankId) {
 		this.bankId = bankId;
 	}
 	public String getName() {

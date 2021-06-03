@@ -7,8 +7,7 @@ import com.hcl.supplierfinance.models.Supplier;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Long>{
 	
-
-	@Query(value = "SELECT * FROM supplier WHERE user_id = ?1", nativeQuery = true)
-	   Supplier findUserById(Long user_id);
+		@Query(value = "SELECT * FROM supplier WHERE user_id = ?1", nativeQuery = true)
+     Supplier findUserById(Long supplier_id);
 
 }

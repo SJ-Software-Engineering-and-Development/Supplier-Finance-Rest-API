@@ -35,8 +35,8 @@ public class PaymentController {
 	@PostMapping("/request")
 	public ResponseEntity<?> addPayment(@Valid @RequestBody PaymentReuest paymentRequest){
 		
-		Bank bank = bankRepository.findUserById(paymentRequest.getBankId());
-		Invoice invoice = innvoiceRepository.findInnvoiceById(paymentRequest.getInnvoiceId());
+		Bank bank = bankRepository.findById(paymentRequest.getBankId()).get();
+		Invoice invoice = innvoiceRepository.findById(paymentRequest.getInnvoiceId()).get();
 		
 		Payment pay = new Payment(paymentRequest.getPaymentDate(), bank, invoice);
 		paymentRepository.save(pay);

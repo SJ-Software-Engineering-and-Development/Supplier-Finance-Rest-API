@@ -31,8 +31,6 @@ public class Payment {
 		super();
 	}
 	public Payment(Date paymentDate, Bank banker, Invoice invoice) {
-		super();
-		this.paymentId = paymentId;
 		this.paymentDate = paymentDate;
 		this.banker = banker;
 		this.invoice = invoice;
@@ -60,7 +58,6 @@ public class Payment {
 	}
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
-	}
-	
+	}	
 	
 }
