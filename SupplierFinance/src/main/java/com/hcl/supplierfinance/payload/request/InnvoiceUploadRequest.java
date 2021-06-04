@@ -16,6 +16,10 @@ public class InnvoiceUploadRequest {
 		
 		private String currency;
 		
+		private Long supplier_id;
+		
+		private Long cus_user_id;
+		
 		public String getCurrency() {
 			return currency;
 		}
@@ -23,10 +27,6 @@ public class InnvoiceUploadRequest {
 		public void setCurrency(String currency) {
 			this.currency = currency;
 		}
-
-		private Long suserId;
-		
-		private Long cuserId;
 
 		
 		public String getInvoiceFile() {
@@ -61,20 +61,20 @@ public class InnvoiceUploadRequest {
 			this.status = status;
 		}
 
-		public Long getSuserId() {
-			return suserId;
+		public Long getSupplier_id() {
+			return supplier_id;
 		}
 
-		public void setSuserId(Long suserId) {
-			this.suserId = suserId;
+		public void setSupplier_id(Long supplier_id) {
+			this.supplier_id = supplier_id;
 		}
 
-		public Long getCuserId() {
-			return cuserId;
+		public Long getCus_user_id() {
+			return cus_user_id;
 		}
 
-		public void setCuserId(Long cuserId) {
-			this.cuserId = cuserId;
+		public void setCus_user_id(Long cus_user_id) {
+			this.cus_user_id = cus_user_id;
 		}
 		
 	}

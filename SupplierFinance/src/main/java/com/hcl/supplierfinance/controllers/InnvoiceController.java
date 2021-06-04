@@ -38,8 +38,8 @@ public class InnvoiceController {
 	@PostMapping("/upload")
 	public ResponseEntity<?> uploadInvoice(@Valid @RequestBody InnvoiceUploadRequest innvoiceUploadRequest) {
 		
-		Supplier supplier = supplierRepository.findById(innvoiceUploadRequest.getSuserId()).get();
-		Client client = clientRepository.findById(innvoiceUploadRequest.getCuserId()).get();
+		Supplier supplier = supplierRepository.findById(innvoiceUploadRequest.getSupplier_id()).get();
+		Client client = clientRepository.findUserById(innvoiceUploadRequest.getCus_user_id());
 		
 		Invoice invoice = new Invoice(innvoiceUploadRequest.getInnvoiceDate(),innvoiceUploadRequest.getAmount(),
 				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceFile(),
