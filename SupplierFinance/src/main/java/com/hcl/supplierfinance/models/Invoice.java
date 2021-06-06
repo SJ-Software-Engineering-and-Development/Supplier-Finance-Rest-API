@@ -18,7 +18,7 @@ public class Invoice {
 	@Id
 	@GeneratedValue
 	@Column(name="innvoiceId")
-	private long innvoiceId;
+	private Long innvoiceId;
 	
 	@Column(name="innvoiceDate")
 	private Date innvoiceDate;
@@ -129,12 +129,12 @@ public class Invoice {
 	}
 
 
-	public long getInnvoiceId() {
+	public Long getInnvoiceId() {
 		return innvoiceId;
 	}
 
 
-	public void setInnvoiceId(long innvoiceId) {
+	public void setInnvoiceId(Long innvoiceId) {
 		this.innvoiceId = innvoiceId;
 	}
 

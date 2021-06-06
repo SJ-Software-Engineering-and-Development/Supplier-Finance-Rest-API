@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import com.hcl.supplierfinance.DTO.SupplierInvoiceDTO;
 import com.hcl.supplierfinance.models.Client;
 import com.hcl.supplierfinance.models.Invoice;
 import com.hcl.supplierfinance.models.Supplier;
+import com.hcl.supplierfinance.payload.request.InnvoiceUpdateRequest;
 import com.hcl.supplierfinance.payload.request.InnvoiceUploadRequest;
 import com.hcl.supplierfinance.payload.response.InnvoiceUpload;
 import com.hcl.supplierfinance.payload.response.MessageResponse;
@@ -95,8 +97,37 @@ public class InnvoiceController {
 
         return new ResponseEntity<>(listSupplierDTO, HttpStatus.OK) ;
 	}
-
 	
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> invoiceUpdate(@Valid @PathVariable(value = "id") Long invoiceId, 
+			 @RequestBody InnvoiceUpdateRequest invoiceUpdate){
+		
+		Long id = invoiceId;
+		if(this.innvoiceRepository.findById(id).isPresent() != false) {
+			
+			try {
+				Invoice oldInvoice = innvoiceRepository.findById(id).get();
+				Invoice invoice = new Invoice();
+				invoice.setInnvoiceId(id);
+				invoice.setInnvoiceDate(oldInvoice.getInnvoiceDate());
+				invoice.setAmount(oldInvoice.getAmount());
+				invoice.setClient(oldInvoice.getClient());
+				invoice.setCurrency(oldInvoice.getCurrency());
+				invoice.setSupplier(oldInvoice.getSupplier());
+				
+				invoice.setInvoiceUrl(invoiceUpdate.getInvoiceUrl());
+				
+				innvoiceRepository.save(invoice);
+				return new ResponseEntity<>("Invoice update Succussfully!",HttpStatus.OK);
+				
+			}catch(Exception ex) {
+				return new ResponseEntity<>("Invoice update fail!",HttpStatus.OK);
+			}
+			
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Requested resource does not found");
+		}
+	}
 //	@GetMapping()
 //	public ResponseEntity<?> getAllClientInnvoice(@PathVariable("id") Long id){
 //
