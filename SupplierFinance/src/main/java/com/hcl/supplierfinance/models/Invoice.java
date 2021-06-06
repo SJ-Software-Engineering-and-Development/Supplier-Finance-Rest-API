@@ -29,8 +29,8 @@ public class Invoice {
 	@Column(name="status")
 	private String status;
 	
-	@Column(name="invoiceFile")
-	private String invoiceFile;
+	@Column(name="invoiceUrl")
+	private String invoiceUrl;
 	
 	@Column(name="currency")
 	private String currency;
@@ -49,13 +49,13 @@ public class Invoice {
 		super();
 	}
 
-	public Invoice(Date innvoiceDate, double amount, String status, String invoiceFile, String currency,
+	public Invoice(Date innvoiceDate, double amount, String status, String invoiceUrl, String currency,
 			Supplier supplier, Client client) {
 		super();
 		this.innvoiceDate = innvoiceDate;
 		this.amount = amount;
 		this.status = status;
-		this.invoiceFile = invoiceFile;
+		this.invoiceUrl = invoiceUrl;
 		this.currency = currency;
 		this.supplier = supplier;
 		this.client = client;
@@ -91,16 +91,13 @@ public class Invoice {
 		this.status = status;
 	}
 
-
-	public String getInvoiceFile() {
-		return invoiceFile;
+	public String getInvoiceUrl() {
+		return invoiceUrl;
 	}
 
-
-	public void setInvoiceFile(String invoiceFile) {
-		this.invoiceFile = invoiceFile;
+	public void setInvoiceUrl(String invoiceUrl) {
+		this.invoiceUrl = invoiceUrl;
 	}
-
 
 	public List<Payment> getPayment() {
 		return payment;
