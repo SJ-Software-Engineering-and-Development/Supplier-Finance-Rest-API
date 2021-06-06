@@ -52,7 +52,7 @@ public class InnvoiceController {
 		Client client = clientRepository.findUserById(innvoiceUploadRequest.getCus_user_id());
 		
 		Invoice invoice = new Invoice(innvoiceUploadRequest.getInnvoiceDate(),innvoiceUploadRequest.getAmount(),
-				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceFile(),
+				innvoiceUploadRequest.getStatus(), innvoiceUploadRequest.getInvoiceUrl(),
 				innvoiceUploadRequest.getCurrency(),supplier, client);
 		Invoice invoiceSave = innvoiceRepository.save(invoice);
 		
@@ -66,7 +66,7 @@ public class InnvoiceController {
 	}
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getAllSupplierInvoice(@PathVariable("id") Long id){
+	public ResponseEntity<?> getAllInvoice(@PathVariable("id") Long id){
 
 		if (supplierRepository.existsById(id)) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Supplier is not there!"));
@@ -97,7 +97,7 @@ public class InnvoiceController {
 	}
 
 	
-//	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping()
 //	public ResponseEntity<?> getAllClientInnvoice(@PathVariable("id") Long id){
 //
 //		if (clientRepository.existsById(id)) {

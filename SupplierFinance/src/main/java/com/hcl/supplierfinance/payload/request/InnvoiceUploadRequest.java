@@ -12,7 +12,7 @@ public class InnvoiceUploadRequest {
 		
 		private String status;
 		
-		private String invoiceFile;
+		private String invoiceUrl;
 		
 		private String currency;
 		
@@ -28,13 +28,12 @@ public class InnvoiceUploadRequest {
 			this.currency = currency;
 		}
 
-		
-		public String getInvoiceFile() {
-			return invoiceFile;
+		public String getInvoiceUrl() {
+			return invoiceUrl;
 		}
 
-		public void setInvoiceFile(String invoiceFile) {
-			this.invoiceFile = invoiceFile;
+		public void setInvoiceUrl(String invoiceUrl) {
+			this.invoiceUrl = invoiceUrl;
 		}
 
 		public Date getInnvoiceDate() {
