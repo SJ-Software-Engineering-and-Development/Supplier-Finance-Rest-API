@@ -16,7 +16,7 @@ public class Supplier {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="suppliertId")
+	@Column(name="supplierId")
 	private Long supplierId;
 	@Column(name="supplierName")
 	private String name;

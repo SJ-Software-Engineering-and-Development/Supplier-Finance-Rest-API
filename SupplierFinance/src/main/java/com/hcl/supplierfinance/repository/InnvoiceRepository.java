@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.hcl.supplierfinance.models.Invoice;
 
-public interface InnvoiceRepository extends JpaRepository<Invoice, Long>{
-	
-	@Query(value = "SELECT * FROM invoice WHERE supplier_suppliert_id = ?1", nativeQuery = true)
-	  List<Invoice> findSupplierInnvoiceById(Long supplierId);
-	
-	@Query(value = "SELECT * FROM invoice WHERE supplier_suppliert_id = ?1", nativeQuery = true)
-	  List<Invoice> findClientInnvoiceById(Long supplierId);
-	
+public interface InnvoiceRepository extends JpaRepository<Invoice, Long> {
+
+	@Query(value = "SELECT * FROM invoice WHERE supplier_supplier_id = ?1", nativeQuery = true)
+	List<Invoice> findSupplierInnvoiceById(Long supplierId);
+
+	@Query(value = "SELECT * FROM invoice WHERE supplier_supplier_id = ?1", nativeQuery = true)
+	List<Invoice> findClientInnvoiceById(Long supplierId);
+
 }
