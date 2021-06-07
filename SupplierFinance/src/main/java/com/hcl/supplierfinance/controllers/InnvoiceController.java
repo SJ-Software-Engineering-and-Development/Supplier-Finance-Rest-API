@@ -67,8 +67,8 @@ public class InnvoiceController {
 		}
 	}
 	
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getAllInvoice(@PathVariable("id") Long id){
+	@GetMapping(value = "getByRole/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getAllInvoice(@Valid @PathVariable("id") Long id ){
 
 		if (supplierRepository.existsById(id)) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Supplier is not there!"));
@@ -114,6 +114,7 @@ public class InnvoiceController {
 				invoice.setClient(oldInvoice.getClient());
 				invoice.setCurrency(oldInvoice.getCurrency());
 				invoice.setSupplier(oldInvoice.getSupplier());
+				invoice.setStatus(oldInvoice.getStatus());
 				
 				invoice.setInvoiceUrl(invoiceUpdate.getInvoiceUrl());
 				
@@ -128,7 +129,8 @@ public class InnvoiceController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Requested resource does not found");
 		}
 	}
-//	@GetMapping()
+
+	//@GetMapping()
 //	public ResponseEntity<?> getAllClientInnvoice(@PathVariable("id") Long id){
 //
 //		if (clientRepository.existsById(id)) {
