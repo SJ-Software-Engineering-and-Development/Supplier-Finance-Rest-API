@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hcl.supplierfinance.DTO.SupplierInvoiceDTO;
 import com.hcl.supplierfinance.models.Client;
 import com.hcl.supplierfinance.models.ERole;
 import com.hcl.supplierfinance.models.Invoice;
@@ -75,37 +73,6 @@ public class InnvoiceController {
 		}
 	}
 
-	@GetMapping(value = "getByRole/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getAllInvoice(@Valid @PathVariable("id") Long id) {
-
-		if (supplierRepository.existsById(id)) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Supplier is not there!"));
-		}
-
-		List<Invoice> listSupplierInvoice = new ArrayList<Invoice>();
-		listSupplierInvoice = innvoiceRepository.findSupplierInnvoiceById(id);
-
-		List<SupplierInvoiceDTO> listSupplierDTO = new ArrayList<SupplierInvoiceDTO>();
-
-		for (Invoice supp : listSupplierInvoice) {
-
-			SupplierInvoiceDTO supplierInvoice = new SupplierInvoiceDTO();
-			supplierInvoice.setAmount(supp.getAmount());
-			supplierInvoice.setCurrency(supp.getCurrency());
-			supplierInvoice.setInnvoiceDate(supp.getInnvoiceDate());
-			supplierInvoice.setInnvoiceId(supp.getInnvoiceId());
-			supplierInvoice.setInvoiceUrl(supp.getInvoiceUrl());
-			supplierInvoice.setStatus(supp.getStatus());
-
-			Client client = supp.getClient();
-			supplierInvoice.setClientId(client.getClientId());
-
-			listSupplierDTO.add(supplierInvoice);
-		}
-
-		return new ResponseEntity<>(listSupplierDTO, HttpStatus.OK);
-	}
-
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> invoiceUpdate(@Valid @PathVariable(value = "id") Long invoiceId,
 			@RequestBody InnvoiceUpdateRequest invoiceUpdate) {
@@ -151,11 +118,14 @@ public class InnvoiceController {
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
+				Long roleId;
+				List<Invoice> listInvoice;
+
 				switch (role) {
 				case "ROLE_SELLER":
 
-					Long roleId = supplierRepository.findSupplierIdByUserId(invoiceView.getUserId());
-					List<Invoice> listInvoice = innvoiceRepository.findSupplierInnvoiceById(roleId);
+					roleId = supplierRepository.findSupplierIdByUserId(invoiceView.getUserId());
+					listInvoice = innvoiceRepository.findSupplierInnvoiceById(roleId);
 
 					for (Invoice supp : listInvoice) {
 						InvoiceResponse invr = new InvoiceResponse();
@@ -176,10 +146,44 @@ public class InnvoiceController {
 
 				case "ROLE_BUYER":
 					roleId = clientRepository.findClientIdByUserId(invoiceView.getUserId());
+					listInvoice = innvoiceRepository.findClientInnvoiceById(roleId);
+
+					for (Invoice supp : listInvoice) {
+						InvoiceResponse invr = new InvoiceResponse();
+
+						invr.setInnvoiceId(supp.getInnvoiceId());
+						invr.setInnvoiceDate(supp.getInnvoiceDate());
+						invr.setAmount(supp.getAmount());
+						invr.setStatus(supp.getStatus());
+						invr.setInvoiceUrl(supp.getInvoiceUrl());
+						invr.setCurrency(supp.getCurrency());
+						invr.setClientUserId(supp.getClient().getClientId());
+						invr.setClientName(supp.getClient().getName());
+						invr.setSupplierUserId(supp.getSupplier().getSupplierId());
+						invr.setSupplierName(supp.getSupplier().getName());
+						listInvoiceResponse.add(invr);
+					}
 
 					break;
 
 				case "ROLE_BANKER":
+					listInvoice = innvoiceRepository.findAll();
+
+					for (Invoice supp : listInvoice) {
+						InvoiceResponse invr = new InvoiceResponse();
+
+						invr.setInnvoiceId(supp.getInnvoiceId());
+						invr.setInnvoiceDate(supp.getInnvoiceDate());
+						invr.setAmount(supp.getAmount());
+						invr.setStatus(supp.getStatus());
+						invr.setInvoiceUrl(supp.getInvoiceUrl());
+						invr.setCurrency(supp.getCurrency());
+						invr.setClientUserId(supp.getClient().getClientId());
+						invr.setClientName(supp.getClient().getName());
+						invr.setSupplierUserId(supp.getSupplier().getSupplierId());
+						invr.setSupplierName(supp.getSupplier().getName());
+						listInvoiceResponse.add(invr);
+					}
 
 					break;
 				case "ROLE_WEB_MASTER":
@@ -188,31 +192,6 @@ public class InnvoiceController {
 			});
 		}
 		return new ResponseEntity<>(listInvoiceResponse, HttpStatus.OK);
-
-//		if (clientRepository.existsById(id)) {
-//			return ResponseEntity.badRequest().body(new MessageResponse("Error: client is not there!"));
-//		}
-//		
-//		List<Invoice> listClientInvoice = new ArrayList<Invoice>();
-//    	listClientInvoice = innvoiceRepository.findSupplierInnvoiceById(id);
-//
-//        List<SupplierInvoiceDTO> listSupplierDTO = new ArrayList<SupplierInvoiceDTO>();
-// 
-//        for (Invoice supp : listSupplierInvoice) {
-//
-//        	SupplierInvoiceDTO supplierInvoice = new SupplierInvoiceDTO();
-//        	supplierInvoice.setAmount(supp.getAmount());
-//        	supplierInvoice.setCurrency(supp.getCurrency());
-//        	supplierInvoice.setInnvoiceDate(supp.getInnvoiceDate());
-//        	supplierInvoice.setInnvoiceId(supp.getInnvoiceId());
-//        	supplierInvoice.setInvoiceFile(supp.getInvoiceFile());
-//        	supplierInvoice.setStatus(supp.getStatus());
-//        	
-//        	Client client = supp.getClient();
-//        	supplierInvoice.setClientId(client.getClientId());
-//
-//            listSupplierDTO.add(supplierInvoice);
-//        }
 
 	}
 }
