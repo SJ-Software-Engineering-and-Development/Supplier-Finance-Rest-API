@@ -31,11 +31,11 @@ import com.hcl.supplierfinance.payload.request.LoginRequest;
 import com.hcl.supplierfinance.payload.request.SupplierSignupRequest;
 import com.hcl.supplierfinance.payload.response.JwtResponse;
 import com.hcl.supplierfinance.payload.response.MessageResponse;
+import com.hcl.supplierfinance.repository.AccoutRepository;
+import com.hcl.supplierfinance.repository.ClientRepository;
 import com.hcl.supplierfinance.repository.RoleRepository;
 import com.hcl.supplierfinance.repository.SupplierRepository;
 import com.hcl.supplierfinance.repository.UserRepository;
-import com.hcl.supplierfinance.repository.AccoutRepository;
-import com.hcl.supplierfinance.repository.ClientRepository;
 import com.hcl.supplierfinance.security.jwt.JwtUtils;
 import com.hcl.supplierfinance.security.services.UserDetailsImpl;
 
@@ -51,13 +51,13 @@ public class AuthController {
 
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	SupplierRepository supplierRepository;
-	
+
 	@Autowired
 	AccoutRepository accountRepository;
-	
+
 	@Autowired
 	ClientRepository clientRepository;
 
@@ -66,9 +66,7 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
-	
-	
-	
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -85,9 +83,8 @@ public class AuthController {
 		return ResponseEntity.ok(
 				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
-	
-	
-	//For Supplier Sign Up
+
+	// For Supplier Sign Up
 	@PostMapping("/supplierSignup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SupplierSignupRequest suppSignupRequest) {
 		if (userRepository.existsByUsername(suppSignupRequest.getUsername())) {
@@ -138,19 +135,19 @@ public class AuthController {
 				}
 			});
 		}
-		
+
 		user.setRoles(roles);
 		userRepository.save(user);
 		Account account = suppSignupRequest.getAccount();
 		accountRepository.save(account);
-		Supplier sup = new Supplier(suppSignupRequest.getFullName(),suppSignupRequest.getCity(),
-				suppSignupRequest.getState(),suppSignupRequest.getCounty(),
-				suppSignupRequest.getPhoneNumber(), suppSignupRequest.getSupplierLimit(), user, account);
+		Supplier sup = new Supplier(suppSignupRequest.getFullName(), suppSignupRequest.getCity(),
+				suppSignupRequest.getState(), suppSignupRequest.getCounty(), suppSignupRequest.getPhoneNumber(),
+				suppSignupRequest.getSupplierLimit(), user, account);
 		supplierRepository.save(sup);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	
-	//For Client Sign up
+
+	// For Client Sign up
 	@PostMapping("/clientSignup")
 	public ResponseEntity<?> registerClient(@Valid @RequestBody ClientSignupRequest clientSignupRequest) {
 		if (userRepository.existsByUsername(clientSignupRequest.getUsername())) {
@@ -201,14 +198,14 @@ public class AuthController {
 				}
 			});
 		}
-		
+
 		user.setRoles(roles);
 		userRepository.save(user);
 		Account account = clientSignupRequest.getAccount();
 		accountRepository.save(account);
-		Client client = new Client(clientSignupRequest.getFullName(),clientSignupRequest.getCity(),
-				clientSignupRequest.getState(),clientSignupRequest.getCounty(),
-				clientSignupRequest.getPhoneNumber(), clientSignupRequest.getCreditLimit(), user, account);
+		Client client = new Client(clientSignupRequest.getFullName(), clientSignupRequest.getCity(),
+				clientSignupRequest.getState(), clientSignupRequest.getCounty(), clientSignupRequest.getPhoneNumber(),
+				clientSignupRequest.getCreditLimit(), user, account);
 		clientRepository.save(client);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}

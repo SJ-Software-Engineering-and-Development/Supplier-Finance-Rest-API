@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,30 +14,31 @@ import com.hcl.supplierfinance.models.Supplier;
 import com.hcl.supplierfinance.repository.SupplierRepository;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("api/supplierFinance/supplier")
 public class SupplierController {
-	
+
 	@Autowired
 	private SupplierRepository supplierRepository;
-	
+
 	@GetMapping("/getall")
-	public List<SupplierDTO> getAllSupplier(){
-		
+	public List<SupplierDTO> getAllSupplier() {
+
 		List<Supplier> listSupplier = new ArrayList<Supplier>();
 		listSupplier = supplierRepository.findAll();
 
-        List<SupplierDTO> listSupplierDTO = new ArrayList<SupplierDTO>();
- 
-        for (Supplier supp : listSupplier) {
+		List<SupplierDTO> listSupplierDTO = new ArrayList<SupplierDTO>();
 
-        	SupplierDTO supplier = new SupplierDTO();
-            supplier.setSupplierId(supp.getSupplierId());
-            supplier.setName(supp.getName());
+		for (Supplier supp : listSupplier) {
 
-            listSupplierDTO.add(supplier);
-        }
+			SupplierDTO supplier = new SupplierDTO();
+			supplier.setSupplierId(supp.getSupplierId());
+			supplier.setName(supp.getName());
 
-        return listSupplierDTO;
+			listSupplierDTO.add(supplier);
+		}
+
+		return listSupplierDTO;
 	}
 
 }

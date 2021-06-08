@@ -12,17 +12,17 @@ import com.hcl.supplierfinance.models.Client;
 import com.hcl.supplierfinance.security.services.ClientService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/supplierFinance/client")
 public class ClientController {
-	
+
 	@Autowired
 	private ClientService clientservice;
-	
+
 	@PostMapping("/register")
 	public ResponseEntity<?> addClient(@RequestBody Client clientData) {
 		return clientservice.saveClient(clientData);
-		
+
 	}
 
 }

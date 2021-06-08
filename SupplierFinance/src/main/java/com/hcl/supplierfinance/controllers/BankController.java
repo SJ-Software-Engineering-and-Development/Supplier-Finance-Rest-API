@@ -12,17 +12,17 @@ import com.hcl.supplierfinance.models.Bank;
 import com.hcl.supplierfinance.service.BankService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/supplierFinance/bank")
 public class BankController {
-	
+
 	@Autowired
 	private BankService bankService;
-	
+
 	@PostMapping("/register")
-	public ResponseEntity<?> saveBank(@RequestBody Bank bankData){
+	public ResponseEntity<?> saveBank(@RequestBody Bank bankData) {
 		bankService.saveBank(bankData);
 		return null;
-		
+
 	}
 }

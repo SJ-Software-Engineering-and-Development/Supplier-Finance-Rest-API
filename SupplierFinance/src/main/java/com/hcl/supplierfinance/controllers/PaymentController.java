@@ -1,10 +1,10 @@
 package com.hcl.supplierfinance.controllers;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,30 +19,30 @@ import com.hcl.supplierfinance.repository.BankRepository;
 import com.hcl.supplierfinance.repository.InnvoiceRepository;
 import com.hcl.supplierfinance.repository.PaymentRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/supplierFinance/payment")
 public class PaymentController {
-	
+
 	@Autowired
 	private PaymentRepository paymentRepository;
-	
+
 	@Autowired
 	private BankRepository bankRepository;
-	
+
 	@Autowired
 	private InnvoiceRepository innvoiceRepository;
-	
+
 	@PostMapping("/request")
-	public ResponseEntity<?> addPayment(@Valid @RequestBody PaymentReuest paymentRequest){
-		
+	public ResponseEntity<?> addPayment(@Valid @RequestBody PaymentReuest paymentRequest) {
+
 		Bank bank = bankRepository.findById(paymentRequest.getBankId()).get();
 		Invoice invoice = innvoiceRepository.findById(paymentRequest.getInnvoiceId()).get();
-		
+
 		Payment pay = new Payment(paymentRequest.getPaymentDate(), bank, invoice);
 		paymentRepository.save(pay);
 		return ResponseEntity.ok(new MessageResponse("Payment Requested Successfully!"));
-		
+
 	}
-	
 
 }

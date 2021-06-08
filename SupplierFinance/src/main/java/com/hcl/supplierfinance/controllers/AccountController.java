@@ -12,18 +12,18 @@ import com.hcl.supplierfinance.models.Account;
 import com.hcl.supplierfinance.service.AccountService;
 
 @RestController
-@CrossOrigin
-@RequestMapping(name="/supplierFinance/account")
+@CrossOrigin(origins = "*")
+@RequestMapping(name = "/supplierFinance/account")
 public class AccountController {
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@PostMapping("/register")
-	public ResponseEntity<?> saveAccount(@RequestBody Account accountData){
+	public ResponseEntity<?> saveAccount(@RequestBody Account accountData) {
 		accountService.saveAccount(accountData);
 		return null;
-		
+
 	}
 
 }

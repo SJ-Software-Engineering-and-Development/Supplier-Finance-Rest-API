@@ -35,7 +35,7 @@ import com.hcl.supplierfinance.repository.RoleRepository;
 import com.hcl.supplierfinance.repository.SupplierRepository;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/supplierFinance/innvoice")
 public class InnvoiceController {
 
