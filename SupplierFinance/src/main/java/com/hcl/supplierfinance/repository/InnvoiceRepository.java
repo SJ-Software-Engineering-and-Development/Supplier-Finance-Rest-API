@@ -12,7 +12,7 @@ public interface InnvoiceRepository extends JpaRepository<Invoice, Long> {
 	@Query(value = "SELECT * FROM invoice WHERE supplier_supplier_id = ?1", nativeQuery = true)
 	List<Invoice> findSupplierInnvoiceById(Long supplierId);
 
-	@Query(value = "SELECT * FROM invoice WHERE supplier_supplier_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM invoice WHERE client_client_id = ?1", nativeQuery = true)
 	List<Invoice> findClientInnvoiceById(Long supplierId);
 
 }
